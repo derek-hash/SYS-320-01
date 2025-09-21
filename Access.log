@@ -1,0 +1,40 @@
+function Parse-ApacheLogs {
+    param (
+        [string]$LogPath = "C:\Users\champuser\Desktop\access.log"
+    )
+
+    $tableRecords = @()
+
+    # Read Apache access.log line by line
+    $logs = Get-Content $LogPath
+
+    for ($i = 0; $i -lt $logs.Count; $i++) {
+        # Split each line into words
+        $words = $logs[$i] -split " "
+
+        # Create a PSObject with properties from words
+        $record = [pscustomobject]@{
+            IP        = $words[0]
+            Time      = $words[3].Trim('[')
+            Method    = $words[5].Trim('"')
+            Page      = $words[6]
+            Protocol  = $words[7].Trim('"')
+            Response  = $words[8]
+            Referrer  = $words[10].Trim('"')
+            Client    = ($words[11..($words.Length - 1)] -join " ")
+        }
+
+        # Add to collection
+        $tableRecords += $record
+    }
+
+    # Return only entries with IP starting with 10.*
+    return $tableRecords | Where-Object { $_.IP -like "10.*" }
+}
+
+# Run the function and display in a table
+$parsedLogs = Parse-ApacheLogs
+$parsedLogs | Format-Table -AutoSize -Wrap
+
+
+
