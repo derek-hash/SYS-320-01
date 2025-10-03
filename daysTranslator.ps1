@@ -4,7 +4,7 @@ function daysTranslator($FullTable) {
         # Empty array to hold normalized day names
         $Days = @()
 
-        $dayString = $FullTable[$i].Days
+        
 
         # M -> Monday
         if ($dayString -like "*M*") { $Days += "Monday" }
