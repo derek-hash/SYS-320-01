@@ -1,0 +1,3 @@
+$FullTable |
+    Where-Object {$_.Instructor -eq "Furkan Paligu" } |
+    Select-Object "Class Code", "Title", "Instructor", "Location", "Days", "Time Start", "Time End"
