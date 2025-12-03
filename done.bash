@@ -11,6 +11,8 @@ echo " -n internal: Internal NMAP scan"
 echo "-s: Add -s as an argument for this script to use ss"
 echo " -s external: External ss(Netstat) scan"
 echo " -s internal: Internal ss(Netstat) scan"
+
+echo "Usage: bash done.bash -n/-s external/internal"
 echo "-------------"
 }
 # Return ports that are serving to the network
